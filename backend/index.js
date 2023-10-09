@@ -3,8 +3,10 @@
 require(`dotenv`).config()
 const express = require('express')
 const { connection } = require('./config/db')
+const { UserRouter } = require('./routes/UserRoutes')
 const app = express()
-
+app.use(express.json())
+app.use("/user",UserRouter)
 app.get("/", (req, res) => {
     res.send("Welcome to Construction Management")
 })
