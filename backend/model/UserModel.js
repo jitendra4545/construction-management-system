@@ -10,6 +10,9 @@ const UserSchema=mongoose.Schema({
     user_role:String,
     password:String,
     is_admin:String
+},{
+    versionKey:false,
+    timestamps:true
 })
 
 
