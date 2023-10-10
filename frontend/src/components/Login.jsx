@@ -14,21 +14,28 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { API } from '../assets/Api'
+import { Link } from 'react-router-dom'
 
 export const Login = () => {
 
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
 
-    const handleLogin = () => {
+    const handleLogin =() => {
         const payload = {
             email, password
         }
-        console.log(email,password)
-        axios.post(`${API}/user/login`, payload)
+        console.log(payload)
+       
+    axios.post(`${API}/user/login`, payload)
             .then((res) => {
-                alert(res.data.msg)
+                console.log(res.data)
+                if(res?.data?.token){
+                    localStorage.setItem("token",(res.data.token))
+                }
             }).catch(err => console.log(err))
+
+  
     }
 
     return (
@@ -64,7 +71,7 @@ export const Login = () => {
                                 align={'start'}
                                 justify={'space-between'}>
                                 <Checkbox>Remember me</Checkbox>
-                                <Text color={'blue.400'}>Forgot password?</Text>
+                                <Text >New User <Link to='/signup'><span style={{color:"blue"}}>Register Here</span></Link></Text>
                             </Stack>
                             <Button
                                 onClick={handleLogin}

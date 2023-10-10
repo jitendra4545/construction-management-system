@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { API } from '../assets/Api'
+import { Link } from 'react-router-dom'
 export const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [isAdmin, setAdmin] = useState(false)
@@ -145,11 +146,11 @@ export const Signup = () => {
                             {isValid ? (
                                 <Text style={{ color: "green" }}>Password is valid.</Text>
                             ) : (
-                                <Text style={{ color: "red" }}>Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit.</Text>
+                                <Text style={{ color: "red" }}>Password must be at least 8 characters e.g Jit@1234</Text>
                             )}
                         </FormControl>
                         <Stack spacing={10}>
-
+                            <Link to='/login'><Text color={'blue'}>Back To Login Page</Text></Link>
                             <Button
                                 onClick={handleRegister}
                                 bg={'blue.400'}
