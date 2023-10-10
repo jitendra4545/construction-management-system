@@ -3,6 +3,7 @@
 
 const express = require(`express`)
 const { ProjectModel } = require("../model/ProjectModel")
+const { Authentication } = require("../middleware/auth")
 const ProjectRouter = express.Router()
 
 
@@ -19,7 +20,7 @@ ProjectRouter.post("/", async (req, res) => {
     }
 })
 
-ProjectRouter.get("/", async (req, res) => {
+ProjectRouter.get("/",Authentication, async (req, res) => {
 
     try {
         let data = await ProjectModel.find()
