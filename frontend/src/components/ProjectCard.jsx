@@ -1,8 +1,7 @@
 import { Box, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 
-export const ProjectCard = (el) => {
-    
+export const ProjectCard = (el) => {  
   return (
     <Box>
         <Heading fontSize={'2xl'} >Title :- {el.project_name}</Heading>

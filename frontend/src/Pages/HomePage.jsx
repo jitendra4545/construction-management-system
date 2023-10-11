@@ -24,8 +24,8 @@ console.log(projects)
 
     return (
         <Box w='90%' m='auto'>
-            <Heading fontSize={'2xl'}textAlign={'center'}>All On Going Projects</Heading>
-            <Box display={'grid'} gridTemplateColumns={"repeat(2,1fr)"} gap='10'> 
+            <Heading m='20px' fontSize={'2xl'}textAlign={'center'}>All On Going Projects</Heading>
+            <Box mt='20px' display={'grid'} gridTemplateColumns={"repeat(2,1fr)"} gap='10'> 
                 {
                     projects.map((el, i) => {
                         return <ProjectCard {...el}/>
