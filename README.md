@@ -1,4 +1,4 @@
-# construction-management-system
+# construction-management-system    https://constructionmanagement.vercel.app/
 
 Hi This is a construction Management app. when you firstly go to through the project link it will take youto the home page you can see all projects add by the admin . If you are not a login your then you cann't see the admin and user page . Firstly you need to sign in the you can see all the details. Where Admin Can Add Projects and  also admin have fully access to delete and Edit the projects.There is Another Fuctionality that admin can assign the specific project to contractor,supervisor and Project manager.
 An Example  If you Login as a Supervisor then it will redirect to the projet page where you can see all the projects that assign to supervisor. In this page you can see all the details of the projects those are assign to you and there is option to complete the project 
