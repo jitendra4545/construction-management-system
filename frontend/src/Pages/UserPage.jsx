@@ -94,7 +94,7 @@ const [Data,setData]=useState([])
       <Box  mt='20px' display={'grid'} gridTemplateColumns={"repeat(2,1fr)"} gap='10'>
       
         {
-          Data.map((el, i) => {
+          Data?.map((el, i) => {
             return <Box borderRadius={'15px'} color={'white'} p='30px' bg={el.status ? "green" : "orange.700"} key={i}>
               <Heading fontSize={'2xl'} >Project Name :- {el.project_name}</Heading>
               <Text textAlign={'center'} borderRadius={"15px"} fontSize={'20px'} mt='10px' fontWeight={'bold'} border={'2px solid yellow'}>Assign To :- {el.project_assign}</Text>
