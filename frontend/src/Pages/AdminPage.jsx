@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { API } from '../assets/Api'
 import { useNavigate } from 'react-router-dom'
+import { Navbar } from '../components/Navbar'
 
 export const AdminPage = () => {
     const [projects, setProjects] = useState([])
@@ -14,7 +15,7 @@ export const AdminPage = () => {
     const [project_assign, setproject_assign] = useState("")
     const [task, settask] = useState("")
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
     const getProj = () => {
@@ -64,25 +65,25 @@ export const AdminPage = () => {
 
 
 
-    const handleEdit=async()=>{
-        
+    const handleEdit = async () => {
+
     }
 
-    const handleDelete=async(id)=>{
-        await fetch(`${API}/project/${id}`,{
-            method:"DELETE",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":localStorage.getItem("token")
+    const handleDelete = async (id) => {
+        await fetch(`${API}/project/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem("token")
             },
 
-        }).then(res=>res.json())
-        .then((res)=>{
-            console.log(res)
-            alert(res.msg)
-            getProj()
-        }).catch(err=>console.log(err))
-   
+        }).then(res => res.json())
+            .then((res) => {
+                console.log(res)
+                alert(res.msg)
+                getProj()
+            }).catch(err => console.log(err))
+
     }
 
 
@@ -91,10 +92,16 @@ export const AdminPage = () => {
         settask("")
     }
 
+
     console.log(task_assignment)
+
+
     return (
+        <>
+        <Navbar/>
+      
         <Box w='90%' m='auto'>
-            <Button m='20px' onClick={onOpen} bg='blue' color={'white'} _hover={{ bg: "blue", color: "white" }}>+ Add New Proj</Button>
+            <Button m='20px' onClick={onOpen} fontWeight={'bold'} bg='blue' color={'white'} _hover={{ bg: "blue", color: "white" }}>+ ADD NEW PROJECT</Button>
             <Modal
                 initialFocusRef={initialRef}
                 finalFocusRef={finalRef}
@@ -129,14 +136,14 @@ export const AdminPage = () => {
                             </Select>
                         </FormControl>
                         <ul>
-                        {
-                           
-                           task_assignment?.map((el)=>{
-                            return <li>{el}</li>
-                           })
-                       }  
-                                </ul>
-                        
+                            {
+
+                                task_assignment?.map((el) => {
+                                    return <li>{el}</li>
+                                })
+                            }
+                        </ul>
+
                         <FormControl mt={4}>
                             <FormLabel>Project Tasks</FormLabel>
                             <Input value={task} onChange={(e) => settask(e.target.value)} type='text' />
@@ -162,32 +169,44 @@ export const AdminPage = () => {
             <Box mt='20px' display={'grid'} gridTemplateColumns={"repeat(2,1fr)"} gap='10'>
                 {
                     projects.map((el, i) => {
-                        return <Box color={'white'} p='30px' bg={el.status ? "green" : "orange.700"} key={i}>
-                            <Heading fontSize={'2xl'} >Title :- {el.project_name}</Heading>
-                            <Text>Assign To :- {el.project_assign}</Text>
-                            <Text>Create Time :- {el.createdAt}</Text>
-                            <Text>Due Date :- {el.due_date}</Text>
-                            <Text>{el.project_desc}</Text>
+                        return <Box borderRadius={'15px'} color={'white'} p='30px' bg={el.status ? "green" : "orange.700"} key={i}>
+                            <Heading fontSize={'2xl'} >Project Name :- {el.project_name}</Heading>
+                            <Text textAlign={'center'} borderRadius={"15px"} fontSize={'20px'} mt='10px' fontWeight={'bold'} border={'2px solid yellow'}>Assign To :- {el.project_assign}</Text>
+                            <Box fontSize={'20px'} m='10px 0px' display={'flex'} justifyContent={'space-between'}>
+                                <Text >Create Time :- {el.createdAt}</Text>
+                                <Text>Due Date :- {el.due_date}</Text>
+                            </Box>
 
-                            <Text>Task Assignments :-</Text>
-                            <ul>
+
+
+                            <Text fontSize={'20px'}>Task Assignments :-</Text>
+                            <ul style={{ marginLeft: "35%" }}>
                                 {
                                     el?.task_assignment?.map((el, i) => {
-                                        return <li>{el}</li>
+                                        return <li style={{ marginBottom: "10px" }}>{el}</li>
 
                                     })
                                 }
                             </ul>
-                            <Box display={'flex'} mt='20px' justifyContent={'center'} gap='10'>
-                                <Button  color={'white'} bg='green' _hover={{ bg: "green.500", color: "white" }}>EDIT</Button>
-                                <Button onClick={()=>handleDelete(el._id)} color={'white'} bg='red' _hover={{ bg: "red.500", color: "white" }}>DELETE</Button>
-                            </Box>
+                            <Text>{el.project_desc}</Text>
+{
+    el.status==false ?                             <Box display={'flex'} mt='20px' justifyContent={'center'} gap='10'>
+    <Button color={'white'} bg='green' _hover={{ bg: "green.500", color: "white" }}>EDIT</Button>
+    <Button onClick={() => handleDelete(el._id)} color={'white'} bg='red' _hover={{ bg: "red.500", color: "white" }}>DELETE</Button>
+</Box>
+:
+<Heading fontSize={'2xl'} textAlign={'center'} mt='20px' >Status:- Completed</Heading>
+}
 
+{
+    el.status==false && <Heading fontSize={'2xl'} textAlign={'center'} mt='20px' >Status:- Pending</Heading>
+}
                         </Box>
                     })
                 }
             </Box>
 
         </Box>
+        </>
     )
 }

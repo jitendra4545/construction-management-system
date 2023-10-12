@@ -12,10 +12,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <Box>
-      {/* <Login/> */}
-{/* <Signup/> */}
-<Navbar/>
+    <Box >
+    
+
 <AllRoutes/>
     </Box>
   )

@@ -14,26 +14,32 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { API } from '../assets/Api'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const Login = () => {
 
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
-
+const navigate=useNavigate()
     const handleLogin =() => {
-        const payload = {
-            email, password
+        if(email==""||password==""){
+            alert("Fill All the Fields")
+        }else{
+            const payload = {
+                email, password
+            }
+            console.log(payload)
+           
+        axios.post(`${API}/user/login`, payload)
+                .then((res) => {
+                    console.log(res.data)
+                    if(res?.data?.token){
+                        localStorage.setItem("token",(res.data.token))
+                    }
+                    navigate("/")
+                }).catch(err => console.log(err))
         }
-        console.log(payload)
-       
-    axios.post(`${API}/user/login`, payload)
-            .then((res) => {
-                console.log(res.data)
-                if(res?.data?.token){
-                    localStorage.setItem("token",(res.data.token))
-                }
-            }).catch(err => console.log(err))
+        
 
   
     }

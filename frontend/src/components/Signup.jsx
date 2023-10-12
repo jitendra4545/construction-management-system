@@ -18,16 +18,16 @@ import {
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { API } from '../assets/Api'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 export const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
-    const [isAdmin, setAdmin] = useState(false)
+     const [Admin, setAdmin] = useState(false)
     const [name, setName] = useState("")
     const [email, setemail] = useState("")
     const [user_role, setuser_role] = useState("")
     const [password, setpassword] = useState("")
     const [isValid, setIsValid] = useState(true);
-
+const navigate=useNavigate()
     const handlePasswordChange = (e) => {
         const newPassword = e.target.value;
         setpassword(newPassword);
@@ -41,7 +41,11 @@ export const Signup = () => {
         setIsValid(isPasswordValid);
     };
 
-
+console.log("sdasd", name,
+email,
+password,
+user_role,
+Admin)
     const handleRegister = async () => {
 
         if (name == "" || email == "" || password == "") {
@@ -53,13 +57,14 @@ export const Signup = () => {
                     email,
                     password,
                     user_role,
-                    isAdmin
+                    isAdmin:Admin
                 }
                 console.log("payload", payload)
                 axios.post(`${API}/user/register`, payload)
                     .then((res) => {
                         console.log(res)
                         alert(res.data.msg)
+                        navigate("/login")
                     }).catch((err) => {
                         console.log(err)
                     })
@@ -107,7 +112,7 @@ export const Signup = () => {
                             <Input placeholder='Enter Email' onChange={(e) => setemail(e.target.value)} type="email" />
                         </FormControl>
                         {
-                            !isAdmin ? <FormControl id="role">
+                            !Admin ? <FormControl id="role">
                                 <FormLabel>Select Role</FormLabel>
                                 <Select onChange={(e) => setuser_role(e.target.value)}>
                                     <option value="">Select Your Role</option>
