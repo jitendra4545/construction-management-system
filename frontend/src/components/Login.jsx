@@ -37,6 +37,7 @@ const navigate=useNavigate()
                         localStorage.setItem("token",(res.data.token))
                     }
                     navigate("/")
+                    alert("Login Successful")
                 }).catch(err => console.log(err))
         }
         

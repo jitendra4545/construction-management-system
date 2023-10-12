@@ -3,23 +3,29 @@ import React, { useEffect, useState } from 'react'
 import { Navbar } from '../components/Navbar'
 import axios from 'axios'
 import { API } from '../assets/Api'
+import { Loader } from '../components/Loader'
 
 export const UserPage = () => {
+  const [Loading,setLoading]=useState(false)
 const [Data,setData]=useState([])
   const [project, setProjects] = useState([])
   const [single, setSingle] = useState([])
   const getProj = () => {
+    setLoading(true)
     axios.get(`${API}/project`)
       .then((res) => {
 
         setProjects(res.data)
+        setLoading(false)
       }).catch((err) => {
         console.log(err)
+        setLoading(false)
       })
   }
   console.log(project)
 
   const getSingleData = async () => {
+    setLoading(true)
     await fetch(`${API}/user/single`, {
       headers: {
         "Content-Type": "application/json",
@@ -27,10 +33,12 @@ const [Data,setData]=useState([])
       }
     }).then(res => res.json())
       .then((res) => {
+        setLoading(false)
         console.log("fddfsdfs", res)
         setSingle(res)
       }).catch((err) => {
         console.log(err)
+        setLoading(false)
       })
 
   }
@@ -45,12 +53,12 @@ const [Data,setData]=useState([])
     let data = project?.filter((el) => el?.project_assign == single[0]?.user_role)
    console.log(data)
     setData(data)
-  },[single])
+  },[single,project])
 
   console.log(Data)
 
   const handleToggle=async(id)=>{
-
+    setLoading(true)
     await fetch(`${API}/project/${id}`,{
       method:"PATCH",
       headers:{
@@ -61,9 +69,11 @@ const [Data,setData]=useState([])
     }).then(res => res.json())
     .then((res) => {
       console.log("fddfsdfs", res)
+      setLoading(false)
      getProj()
     }).catch((err) => {
       console.log(err)
+      setLoading(false)
     })
 
         
@@ -77,7 +87,9 @@ const [Data,setData]=useState([])
       <Navbar />
       <Box  w='90%' m='auto'>
 
-     
+     {
+      Loading&& <Loader/>
+     }
       <Heading m='20px' fontSize={"2xl"}>Project Assign To You</Heading>
       <Box  mt='20px' display={'grid'} gridTemplateColumns={"repeat(2,1fr)"} gap='10'>
       
@@ -107,7 +119,7 @@ const [Data,setData]=useState([])
               {
                 el?.status==false ? <Button onClick={()=>handleToggle(el._id)} _hover={{bg:'teal'}} m='10px 0px' bg='teal' color={'white'}>Click Here To Complete</Button>
                 :
-<Button onClick={()=>handleToggle(el._id)} _hover={{bg:'grey'}} m='10px 0px' bg='grey' color={'white'} disabled> Completed</Button>
+<Button  _hover={{bg:'grey'}} m='10px 0px' bg='grey' color={'white'} disabled> Completed</Button>
               }
             </Box>
           })

@@ -8,6 +8,7 @@ import { HomePage } from './HomePage'
 import { AdminPage } from './AdminPage'
 import { ReqAuth } from './ReqAuth'
 import { UserPage } from './UserPage'
+import { EditProj } from './EditProj'
 export const AllRoutes = () => {
   return (
     <Routes>
@@ -32,6 +33,13 @@ export const AllRoutes = () => {
   </ReqAuth>
   
 } />
+
+<Route path='/edit/:id' element={
+  <ReqAuth>
+    <EditProj/>
+  </ReqAuth>
+} />
+
     </Routes>
   )
 }
