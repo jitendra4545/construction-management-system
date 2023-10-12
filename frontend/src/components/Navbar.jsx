@@ -1,13 +1,13 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { API } from '../assets/Api'
 
 
 export const Navbar = () => {
 const [Single,setSingle]=useState([])
 let token=localStorage.getItem("token")
-
+const navigate=useNavigate()
 const handleLogout=async()=>{
     await fetch(`${API}/user/logout`, {
         method:"PATCH",
@@ -20,6 +20,7 @@ const handleLogout=async()=>{
             console.log("fddfsdfs",res)
             localStorage.removeItem("token")
          window.location.reload()
+        navigate("/")
         }).catch((err) => {
             console.log(err)
         })
