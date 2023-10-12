@@ -9,6 +9,8 @@ const UserSchema = mongoose.Schema({
     email: { type: String, unique: true },
     user_role: String,
     password: String,
+    isAdmin:Boolean,
+    isActive:Boolean
 }, {
     versionKey: false,
     timestamps: true

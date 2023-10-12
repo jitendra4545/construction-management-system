@@ -6,8 +6,9 @@ const Authentication=(req,res,next)=>{
     console.log(token)
     if(token){
         jwt.verify(token, 'hyscaler', function(err, decoded) {
-            console.log(decoded)
+            console.log("asdsdas",decoded)
             if(decoded){
+                req.body.UserId=decoded.userID
                 next()
             }else{
                 res.send({"msg":"Unable To verify Token"})

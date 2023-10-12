@@ -9,7 +9,7 @@ const ProjectRouter = express.Router()
 
 
 
-ProjectRouter.post("/", async (req, res) => {
+ProjectRouter.post("/",Authentication, async (req, res) => {
     let data = req.body
     try {
         let newData = new ProjectModel(data)
@@ -20,7 +20,7 @@ ProjectRouter.post("/", async (req, res) => {
     }
 })
 
-ProjectRouter.get("/",Authentication, async (req, res) => {
+ProjectRouter.get("/", async (req, res) => {
 
     try {
         let data = await ProjectModel.find()
@@ -30,7 +30,7 @@ ProjectRouter.get("/",Authentication, async (req, res) => {
     }
 })
 
-ProjectRouter.patch("/:id", async (req, res) => {
+ProjectRouter.patch("/:id",Authentication, async (req, res) => {
     let id = req.params.id
     console.log(id)
     let data = req.body
@@ -43,7 +43,7 @@ ProjectRouter.patch("/:id", async (req, res) => {
     }
 })
 
-ProjectRouter.delete("/:id", async (req, res) => {
+ProjectRouter.delete("/:id",Authentication, async (req, res) => {
     let id = req.params.id
     try {
         await ProjectModel.findOneAndDelete({ _id: id })
